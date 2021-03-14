@@ -1,14 +1,27 @@
-import { ApolloProvider } from "react-apollo-hooks";
-import Client from "../Apollo/Client";
 import GlobalStyles from "../Styles/GlobalStyles";
-import AppRouter from "./Router";
+import { gql } from "apollo-boost";
+import AppRouter from "./Routes";
+import { useQuery } from "react-apollo-hooks";
+import { HashRouter as Router } from "react-router-dom";
+
+const QUERY = gql`
+  {
+    isLoggedIn @client
+  }
+`;
 
 function App() {
+  const {
+    data: { isLoggedIn },
+  } = useQuery(QUERY);
+
   return (
-    <ApolloProvider client={Client}>
+    <>
       <GlobalStyles />
-      <AppRouter isLoggedIn={!false} />
-    </ApolloProvider>
+      <Router>
+        <AppRouter isLoggedIn={isLoggedIn} />
+      </Router>
+    </>
   );
 }
 
