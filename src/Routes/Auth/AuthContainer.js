@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { KAKAO_LOGIN, LOCAL_LOG_IN } from "./AuthQuery";
 import { useMutation } from "react-apollo-hooks";
+import AuthPresenter from "./AuthPresenter";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
@@ -26,10 +27,5 @@ export default () => {
       },
     });
   };
-
-  return (
-    <a href="#" onClick={loginWithKakao}>
-      <h1>카카오로그인</h1>
-    </a>
-  );
+  return <AuthPresenter onClick={loginWithKakao} />;
 };

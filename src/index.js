@@ -3,6 +3,7 @@ import { ApolloProvider } from "react-apollo-hooks";
 import ReactDOM from "react-dom";
 import Client from "./Apollo/Client";
 import App from "./Components/App";
+import "semantic-ui-css/semantic.min.css";
 
 ReactDOM.render(
   <ApolloProvider client={Client}>
