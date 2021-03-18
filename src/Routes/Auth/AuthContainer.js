@@ -9,10 +9,15 @@ export default () => {
   const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
 
   useEffect(() => {
-    if (data) {
-      localLogInMutation({ variables: { token: data.socialAuth.token } });
+    async function locallogin() {
+      if (await data) {
+        await localLogInMutation({
+          variables: { token: data.socialAuth.token },
+        });
+      }
     }
-  });
+    locallogin();
+  }, data);
 
   // 카카오 로그인 버튼을 생성합니다.
   const loginWithKakao = () => {

@@ -85,7 +85,7 @@ export default ({ onClick }) => {
     <AuthBody>
       <AuthWrapper>
         <Helmet>
-          <title>Log In | Prismagram</title>
+          <title>Log In | For 주주</title>
         </Helmet>
         <AuthHead>
           <Logo>
