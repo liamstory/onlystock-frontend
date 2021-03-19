@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Auth from "../Routes/Auth";
 import Feed from "../Routes/Feed";
+import AddStock from "../Routes/AddStock";
 
 const LoggedInRoutes = () => (
   <>
-    <Route exact path="/" component={Feed} />
+    <Route exact path="/" component={AddStock} />
   </>
 );
 

@@ -27,6 +27,7 @@ export default () => {
           variables: { provider: "kakao", accessToken: authObj.access_token },
         });
       },
+
       fail: function (err) {
         alert(JSON.stringify(err));
       },
