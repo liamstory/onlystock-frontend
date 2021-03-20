@@ -1,23 +1,9 @@
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import { Button, Image } from "semantic-ui-react";
+import { Body, Wrapper, Content, Article } from "../../Styles/Wrapper";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-const AuthBody = styled.div`
-  display: table;
-  width: 100%;
-  min-width: 320px;
-  height: 100%;
-  border-collapse: separate;
-`;
-const AuthWrapper = styled.div`
-  position: relative;
-  display: table-cell;
-  height: 100%;
-  vertical-align: middle;
-  padding: 50px 0;
-`;
-
 const AuthHead = styled.div`
   max-width: 520px;
   text-align: center;
@@ -43,22 +29,6 @@ const String = styled.span`
   height: 100%;
 `;
 
-const Content = styled.div`
-  display: block;
-`;
-
-const Article = styled.div`
-  max-width: 520px;
-  padding-bottom: 49px;
-  position: relative;
-  min-height: 520px;
-  margin: 40px auto;
-  padding: 58px 69px 139px;
-  border: 1px solid #e5e5e5;
-  border-radius: 2px;
-  box-sizing: border-box;
-`;
-
 const AccountIntro = styled.div`
   margin-top: 30px;
   display: block;
@@ -82,8 +52,8 @@ const AuthImage = styled.img`
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ onClick }) => {
   return (
-    <AuthBody>
-      <AuthWrapper>
+    <Body>
+      <Wrapper>
         <Helmet>
           <title>Log In | For 주주</title>
         </Helmet>
@@ -118,7 +88,7 @@ export default ({ onClick }) => {
             </AccountIntro>
           </Article>
         </Content>
-      </AuthWrapper>
-    </AuthBody>
+      </Wrapper>
+    </Body>
   );
 };
