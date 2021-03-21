@@ -10,7 +10,19 @@ export const WhoamI = gql`
 `;
 
 export const get_Stock = gql`
-  mutation getStock($id: String!, $secret: String!) {
-    getStock(id: id, secret: secret)
+  mutation getStock(
+    $companyId: String!
+    $companySecret: String!
+    $company: Int!
+  ) {
+    getStock(
+      companyId: $companyId
+      companySecret: $companySecret
+      company: $company
+    ) {
+      information {
+        id
+      }
+    }
   }
 `;
