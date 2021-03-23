@@ -1,1 +1,3 @@
-export default () => "하이";
+import MainContainer from "./MainContainer";
+
+export default MainContainer;

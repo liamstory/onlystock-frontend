@@ -6,8 +6,9 @@ import GetAccount from "../Routes/GetAccount";
 
 const LoggedInRoutes = () => (
   <Switch>
-    <Route exact path="/" component={GetAccount} />
-    <Route path="/main" componet={Main} />
+    <Route exact path="/GetAccount" component={GetAccount} />
+    <Route exact path="/" component={Main} />
+    <Redirect from="*" to="/" />
   </Switch>
 );
 

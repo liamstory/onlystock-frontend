@@ -9,7 +9,7 @@ export default () => {
   const [companyId, setCompanyId] = useState("");
   const [companySecret, setCompanySecret] = useState("");
   const [open, setOpen] = useState(false);
-  const [getAccountMutation, { loading, error }] = useMutation(getAccount, {
+  const [getAccountMutation] = useMutation(getAccount, {
     variables: {
       companyId: companyId,
       companySecret: companySecret,
@@ -21,9 +21,7 @@ export default () => {
     e.preventDefault();
     if (companyId !== "" && companySecret !== "") {
       try {
-        const {
-          data: { getAccount },
-        } = await getAccountMutation();
+        await getAccountMutation();
       } catch (e) {
         toast.error(e.message);
       }
