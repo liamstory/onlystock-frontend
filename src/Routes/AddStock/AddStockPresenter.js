@@ -4,9 +4,15 @@ import { Button, Modal, Form } from "semantic-ui-react";
 import { Body, Wrapper, Content, Article } from "../../Styles/Wrapper";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (company_id, company_secret, onSubmit) => {
-  const [open, setOpen] = useState(false);
-
+export default ({
+  companyId,
+  setCompanyId,
+  setCompanySecret,
+  companySecret,
+  onSubmit,
+  open,
+  setOpen,
+}) => {
   return (
     <Body>
       <Wrapper>
@@ -36,12 +42,14 @@ export default (company_id, company_secret, onSubmit) => {
                     <Form.Input
                       placeholder="아이디를 입력하세요"
                       name="id"
-                      {...company_id}
+                      value={companyId}
+                      onChange={(e) => setCompanyId(e.target.value)}
                     />
                     <Form.Input
                       placeholder="비밀번호를 입력하세요"
                       name="secret"
-                      {...company_secret}
+                      value={companySecret}
+                      onChange={(e) => setCompanySecret(e.target.value)}
                     />
                     <Form.Button content="Submit" />
                   </Form.Group>

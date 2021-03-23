@@ -1,57 +1,46 @@
 import useInput from "../../Hooks/useInput";
 import { useMutation } from "react-apollo-hooks";
-import { get_Stock } from "./AddStockQuery";
+import { getAccount } from "./AddStockQuery";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet";
-import { Button } from "semantic-ui-react";
-import { Body, Wrapper, Content, Article } from "../../Styles/Wrapper";
+import AddStockPresenter from "./AddStockPresenter";
+import { useState } from "react";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
-  const company_id = useInput("");
-  const company_secret = useInput("");
-  const [getStockMutation, { loading, error }] = useMutation(get_Stock, {
+  const [companyId, setCompanyId] = useState("");
+  const [companySecret, setCompanySecret] = useState("");
+  const [getAccountMutation, { loading, error }] = useMutation(getAccount, {
     variables: {
-      companyId: company_id.value,
-      companySecret: company_secret.value,
+      companyId: companyId,
+      companySecret: companySecret,
       company: 1,
     },
   });
+  const [open, setOpen] = useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (company_id.value !== "" && company_secret.value !== "") {
+    if (companyId !== "" && companySecret !== "") {
       try {
         const {
-          data: { getStock },
-        } = await getStockMutation();
+          data: { getAccount },
+        } = await getAccountMutation();
       } catch (e) {
         toast.error(e.message);
       }
     } else {
       toast.error("정보를 입력하시오");
     }
+    setOpen(false);
   };
   return (
-    <Body>
-      <Wrapper>
-        <Helmet>
-          <title>Log In | For 주주</title>
-        </Helmet>
-        <Content>
-          <Article>
-            <form onSubmit={onSubmit}>
-              <input placeholder="아이디를 입력하세요" {...company_id}></input>
-              <input
-                placeholder="비밀번호를 입력하세요"
-                {...company_secret}
-              ></input>
-              <Button>
-                <span>로그인</span>
-              </Button>
-            </form>
-          </Article>
-        </Content>
-      </Wrapper>
-    </Body>
+    <AddStockPresenter
+      companyId={companyId}
+      setCompanyId={setCompanyId}
+      companySecret={companySecret}
+      setCompanySecret={setCompanySecret}
+      onSubmit={onSubmit}
+      open={open}
+      setOpen={setOpen}
+    ></AddStockPresenter>
   );
 };

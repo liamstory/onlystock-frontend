@@ -1,26 +1,17 @@
 import { gql } from "apollo-boost";
 
-export const WhoamI = gql`
-  query {
-    whoami {
-      username
-      id
-    }
-  }
-`;
-
-export const get_Stock = gql`
-  mutation getStock(
+export const getAccount = gql`
+  mutation getAccount(
     $companyId: String!
     $companySecret: String!
     $company: Int!
   ) {
-    getStock(
+    getAccount(
       companyId: $companyId
       companySecret: $companySecret
       company: $company
     ) {
-      information {
+      account {
         id
       }
     }
