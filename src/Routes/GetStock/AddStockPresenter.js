@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Button, Modal, Form } from "semantic-ui-react";
 import { Body, Wrapper, Content, Article } from "../../Styles/Wrapper";
@@ -31,7 +30,7 @@ export default ({
                   size="large"
                   fluid
                 >
-                  <span style={{ fontSize: 15 }}>카카오톡으로 시작하기</span>
+                  <span style={{ fontSize: 15 }}>모바일 나무</span>
                 </Button>
               }
             >
@@ -56,6 +55,13 @@ export default ({
                 </Form>
               </Modal.Content>
             </Modal>
+            <Button
+              style={{ marginBottom: 10, backgroundColor: "#FEE500" }}
+              size="large"
+              fluid
+            >
+              <span style={{ fontSize: 15 }}>다음으로 넘어가기</span>
+            </Button>
           </Article>
         </Content>
       </Wrapper>

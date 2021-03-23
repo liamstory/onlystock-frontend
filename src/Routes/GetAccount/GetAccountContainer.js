@@ -1,14 +1,14 @@
-import useInput from "../../Hooks/useInput";
 import { useMutation } from "react-apollo-hooks";
-import { getAccount } from "./AddStockQuery";
+import { getAccount } from "./GetAccountQuery";
 import { toast } from "react-toastify";
-import AddStockPresenter from "./AddStockPresenter";
+import AddStockPresenter from "./GetAccountPresenter";
 import { useState } from "react";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
   const [companyId, setCompanyId] = useState("");
   const [companySecret, setCompanySecret] = useState("");
+  const [open, setOpen] = useState(false);
   const [getAccountMutation, { loading, error }] = useMutation(getAccount, {
     variables: {
       companyId: companyId,
@@ -16,7 +16,7 @@ export default () => {
       company: 1,
     },
   });
-  const [open, setOpen] = useState(false);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (companyId !== "" && companySecret !== "") {
@@ -32,6 +32,7 @@ export default () => {
     }
     setOpen(false);
   };
+
   return (
     <AddStockPresenter
       companyId={companyId}

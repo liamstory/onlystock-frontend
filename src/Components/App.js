@@ -5,6 +5,8 @@ import { useQuery } from "react-apollo-hooks";
 import { HashRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import Theme from "../Styles/Theme";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const QUERY = gql`
   {
@@ -23,6 +25,7 @@ function App() {
       <Router>
         <AppRouter isLoggedIn={isLoggedIn} />
       </Router>
+      <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
     </ThemeProvider>
   );
 }
