@@ -4,7 +4,8 @@ export const getStock = gql`
   {
     stock {
       code
-      amount
+      id
+      stockname
     }
   }
 `;

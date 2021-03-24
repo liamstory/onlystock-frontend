@@ -25,7 +25,7 @@ export default () => {
 
   useEffect(() => {
     if (data) {
-      history.push("/main");
+      history.push("/");
     }
   }, [data]);
 

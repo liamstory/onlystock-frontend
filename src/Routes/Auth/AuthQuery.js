@@ -13,6 +13,14 @@ export const KAKAO_LOGIN = gql`
     }
   }
 `;
+export const whoAmI = gql`
+  {
+    whoami {
+      username
+      agree_1
+    }
+  }
+`;
 
 export const LOCAL_LOG_IN = gql`
   mutation logUserIn($token: String!) {
