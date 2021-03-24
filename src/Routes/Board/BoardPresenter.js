@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Table, Container, Loader } from "semantic-ui-react";
 import Menu from "../Menu/index";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default ({ loading, data }) => {
   const history = useHistory();
   useEffect(() => {

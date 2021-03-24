@@ -4,10 +4,12 @@ import Auth from "../Routes/Auth";
 import Menu from "../Routes/Menu";
 import GetAccount from "../Routes/GetAccount";
 import Board from "../Routes/Board";
+import editor from "../Components/Common/Editor";
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Menu} />
-    <Route path="/GetAccount" component={GetAccount} />
+    <Route path="/getaccount" component={GetAccount} />
+    <Route path="/editor" component={editor} />
     <Route path="/:code" component={Board} />
     <Redirect from="*" to="/" />
   </Switch>
