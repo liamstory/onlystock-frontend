@@ -1,17 +1,18 @@
 import PropTypes from "prop-types";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Auth from "../Routes/Auth";
-import Menu from "../Routes/Menu";
 import GetAccount from "../Routes/GetAccount";
-import Board from "../Routes/Board";
-import editor from "../Components/Common/Editor";
+import Home from "../Routes/Home";
+import Post from "../Components/Post";
+import Board from "../Components/Board";
+
 const LoggedInRoutes = () => (
   <Switch>
-    <Route exact path="/" component={Menu} />
+    <Route path="/home" component={Home} />
     <Route path="/getaccount" component={GetAccount} />
-    <Route path="/editor" component={editor} />
-    <Route path="/:code" component={Board} />
-    <Redirect from="*" to="/" />
+    <Route path="/post/:code" component={Post} />
+    <Route path="/stock/:code" component={Board} />
+    <Redirect from="*" to="/home" />
   </Switch>
 );
 

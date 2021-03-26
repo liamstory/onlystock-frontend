@@ -10,6 +10,6 @@ export default withRouter(
     },
   }) => {
     const { data, loading } = useQuery(getCode, { variables: { code } });
-    return <BoardPresenter data={data} loading={loading} />;
+    return <BoardPresenter data={data} loading={loading} code={code} />;
   }
 );
