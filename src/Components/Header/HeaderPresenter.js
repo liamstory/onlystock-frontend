@@ -1,12 +1,22 @@
-import { Link } from "react-router-dom";
 import { Container, Dropdown, Icon, Menu } from "semantic-ui-react";
-import HeaderContainer from "./HeaderContainer";
+import { allStock } from "./HeaderQuery";
+import { useEffect } from "react";
+import { useQuery } from "react-apollo-hooks";
+import { Link, useHistory } from "react-router-dom";
 
-export default ({ code }) => {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default ({ code, stockname }) => {
+  const { data, loading } = useQuery(allStock);
+
+  const history = useHistory();
+  useEffect(() => {
+    if (data && !data.allstock) history.push("/getAccount");
+  }, [data]);
+
   return (
     <Menu secondary>
       <Container>
-        <Menu.Item header>종목명</Menu.Item>
+        <Menu.Item header>{stockname}</Menu.Item>
         <Menu.Item position="right">
           <Link to={`/post/${code}`}>
             <Icon name="edit outline" />
@@ -15,7 +25,14 @@ export default ({ code }) => {
         </Menu.Item>
         <Dropdown item simple text="나의 회사">
           <Dropdown.Menu>
-            <HeaderContainer />
+            {!loading &&
+              data &&
+              data.allstock &&
+              data.allstock.map((stock, index) => (
+                <Link key={index} to={`/stock/${stock.code}`}>
+                  <Dropdown.Item text={stock.stockname} />
+                </Link>
+              ))}
           </Dropdown.Menu>
         </Dropdown>
       </Container>

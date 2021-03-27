@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { toast } from "react-toastify";
-import { getCode } from "../Board/BoardQuery";
 import PostPresenter from "./PostPresenter";
 import { CREATE_POST } from "./PostQuery";
 
@@ -11,7 +10,6 @@ export default ({
     params: { code },
   },
 }) => {
-  const { data, loading } = useQuery(getCode, { variables: { code } });
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState("");
   const [creatPostMutation] = useMutation(CREATE_POST, {
@@ -33,6 +31,7 @@ export default ({
 
   return (
     <PostPresenter
+      code={code}
       contents={contents}
       title={title}
       setContents={setContents}

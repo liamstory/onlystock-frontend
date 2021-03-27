@@ -1,10 +1,17 @@
 import gql from "graphql-tag";
 
-export const getStock = gql`
-  {
-    stock {
+export const haveStock = gql`
+  query havestock($code: String!) {
+    havestock(code: $code) {
+      stockname
+    }
+  }
+`;
+
+export const allStock = gql`
+  query allstock {
+    allstock {
       code
-      id
       stockname
     }
   }
