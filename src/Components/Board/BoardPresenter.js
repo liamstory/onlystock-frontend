@@ -3,11 +3,13 @@ import { useQuery } from "react-apollo-hooks";
 import { useHistory } from "react-router-dom";
 import { Table, Container, Loader } from "semantic-ui-react";
 import Header from "../Header";
-import { getPost } from "./BoardQuery";
+import { getPost, haveStock } from "./BoardQuery";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({ data, code }) => {
+export default ({ code }) => {
   const history = useHistory();
+  const { data } = useQuery(haveStock, { variables: { code } });
+
   const { data: postData, loading: postLoading } = useQuery(getPost, {
     variables: { code },
   });
