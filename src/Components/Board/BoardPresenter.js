@@ -1,25 +1,43 @@
 import { useEffect } from "react";
 import { useQuery } from "react-apollo-hooks";
 import { useHistory } from "react-router-dom";
-import { Table, Container, Loader } from "semantic-ui-react";
+import {
+  Table,
+  Container,
+  Loader,
+  Segment,
+  Dimmer,
+  Image,
+} from "semantic-ui-react";
 import Header from "../Header";
-import { getPost, haveStock } from "./BoardQuery";
+import { allPost, haveStock } from "./BoardQuery";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ code }) => {
   const history = useHistory();
-  const { data } = useQuery(haveStock, { variables: { code } });
-
-  const { data: postData, loading: postLoading } = useQuery(getPost, {
+  const { data, loading } = useQuery(haveStock, { variables: { code } });
+  const { data: postData, loading: postLoading } = useQuery(allPost, {
     variables: { code },
   });
+
+  const onRowClick = (id, code) => {
+    history.push(`/article/${code}/${id}`);
+  };
 
   useEffect(() => {
     if (data && !data.havestock) history.push("/");
   }, [data]);
 
-  if (postLoading === true) {
-    return <Loader></Loader>;
+  if (postLoading || loading === true) {
+    return (
+      <Segment>
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+
+        <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />
+      </Segment>
+    );
   }
   return (
     <Container style={{ marginTop: "7em" }}>
@@ -28,7 +46,7 @@ export default ({ code }) => {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>번호</Table.HeaderCell>
-            <Table.HeaderCell>제목</Table.HeaderCell>
+            <Table.HeaderCell width={10}>제목</Table.HeaderCell>
             <Table.HeaderCell>글쓴이</Table.HeaderCell>
             <Table.HeaderCell>보유 수량</Table.HeaderCell>
             <Table.HeaderCell>등록일</Table.HeaderCell>
@@ -39,9 +57,9 @@ export default ({ code }) => {
         <Table.Body>
           {!postLoading &&
             postData &&
-            postData.post &&
-            postData.post.map((post, index) => (
-              <Table.Row key={index}>
+            postData.allpost &&
+            postData.allpost.map((post, index) => (
+              <Table.Row key={index} onClick={() => onRowClick(post.id, code)}>
                 <Table.Cell>{post.id}</Table.Cell>
                 <Table.Cell>{post.title}</Table.Cell>
                 <Table.Cell>{post.user.username}</Table.Cell>

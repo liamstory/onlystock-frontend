@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useMutation } from "react-apollo-hooks";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
-import PostListPresenter from "./PostListPresenter";
-import { CREATE_POST } from "./PostListQuery";
+import PostPresenter from "./PostPresenter";
+import { CREATE_POST } from "./PostQuery";
 import _ from "lodash";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -24,11 +24,10 @@ export default ({
     if (code !== "" && contents !== "" && title !== "") {
       try {
         const { data } = await creatPostMutation();
-        console.log(data);
         if (!_.isEmpty(data.createPost.errors)) return;
 
-        const code = _.get(data, "createPost.post.code");
-        history.push(`/stock/${code}`);
+        const post = _.get(data, "createPost.post");
+        history.push(`/article/${post.code}/${post.id}`);
       } catch (e) {
         toast.error(e.message);
       }
@@ -38,13 +37,13 @@ export default ({
   };
 
   return (
-    <PostListPresenter
+    <PostPresenter
       code={code}
       contents={contents}
       title={title}
       setContents={setContents}
       setTitle={setTitle}
       onSubmit={onSubmit}
-    ></PostListPresenter>
+    ></PostPresenter>
   );
 };

@@ -8,9 +8,9 @@ export const haveStock = gql`
   }
 `;
 
-export const getPost = gql`
-  query post($code: String!) {
-    post(code: $code) {
+export const allPost = gql`
+  query allpost($code: String!) {
+    allpost(code: $code) {
       id
       contents
       title

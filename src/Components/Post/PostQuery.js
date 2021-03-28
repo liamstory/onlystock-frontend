@@ -12,3 +12,11 @@ export const CREATE_POST = gql`
     }
   }
 `;
+
+export const haveStock = gql`
+  query havestock($code: String!) {
+    havestock(code: $code) {
+      stockname
+    }
+  }
+`;

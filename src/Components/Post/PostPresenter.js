@@ -1,18 +1,52 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router";
-import { Container, Form } from "semantic-ui-react";
+import {
+  Container,
+  Form,
+  Segment,
+  Dimmer,
+  Loader,
+  Image,
+} from "semantic-ui-react";
 import Header from "../Header";
+import { haveStock } from "./PostQuery";
+import { useQuery } from "react-apollo-hooks";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({ data, onSubmit, title, setTitle, setContents, contents }) => {
+export default ({
+  code,
+  data,
+  onSubmit,
+  title,
+  setTitle,
+  setContents,
+  contents,
+}) => {
   const history = useHistory();
+  const { data: haveStockData, loading: haveStockLoading } = useQuery(
+    haveStock,
+    { variables: { code } }
+  );
+
   useEffect(() => {
     if (data && !data.code) history.push("/");
   }, [data]);
 
+  if (haveStockLoading) {
+    return (
+      <Segment>
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+
+        <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />
+      </Segment>
+    );
+  }
+
   return (
     <Container>
-      <Header />
+      <Header code={code} stockname={haveStockData.havestock.stockname} />
       <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Field
