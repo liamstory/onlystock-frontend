@@ -9,7 +9,7 @@ import {
   Dimmer,
   Image,
 } from "semantic-ui-react";
-import Header from "../Header";
+import HeaderContent from "../HeaderContent";
 import { allPost, haveStock } from "./BoardQuery";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -28,7 +28,7 @@ export default ({ code }) => {
     if (data && !data.havestock) history.push("/");
   }, [data]);
 
-  if (postLoading || loading === true) {
+  if (postLoading || loading) {
     return (
       <Segment>
         <Dimmer active>
@@ -41,7 +41,7 @@ export default ({ code }) => {
   }
   return (
     <Container style={{ marginTop: "7em" }}>
-      <Header code={code} stockname={data.havestock.stockname} />
+      <HeaderContent code={code} stockname={data.havestock.stockname} />
       <Table singleLine>
         <Table.Header>
           <Table.Row>

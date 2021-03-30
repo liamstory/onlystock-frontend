@@ -22,14 +22,16 @@ export default ({ code, stockname }) => {
   } = useQuery(totalAmount, { variables: { code } });
 
   const history = useHistory();
+
   const onClick = (code) => {
     history.push(`/post/${code}`);
   };
+
   useEffect(() => {
     if (data && !data.allstock) history.push("/getAccount");
   }, [data]);
 
-  if (totalAmountLoading || loading === true) {
+  if (totalAmountLoading || loading) {
     return (
       <Segment>
         <Dimmer active>

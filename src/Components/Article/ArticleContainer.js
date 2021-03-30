@@ -1,7 +1,17 @@
 import { useQuery } from "react-apollo-hooks";
-import { Container, Segment, Dimmer, Loader, Image } from "semantic-ui-react";
+import {
+  Container,
+  Segment,
+  Dimmer,
+  Loader,
+  Image,
+  Grid,
+  Header,
+  Divider,
+} from "semantic-ui-react";
 import { getPost, haveStock } from "./ArticleQuery";
-import Header from "../Header";
+import HeaderContent from "../HeaderContent";
+import Comments from "../Comments";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({
@@ -16,6 +26,7 @@ export default ({
     haveStock,
     { variables: { code } }
   );
+
   if (loading || haveStockLoading) {
     return (
       <Segment>
@@ -27,27 +38,34 @@ export default ({
       </Segment>
     );
   }
+
   return (
     <Container>
-      <Header code={code} stockname={haveStockData.havestock.stockname} />
-      <div className="banner">
-        <div className="container">
-          <h1>{data.getpost.title}</h1>
-        </div>
-      </div>
-      <div className="container page">
-        <div className="row article-content">
-          <div className="col-md-12">{data.getpost.contents}</div>
-        </div>
+      <HeaderContent
+        code={code}
+        stockname={haveStockData.havestock.stockname}
+      />
 
-        <hr />
+      <Grid style={{ background: "#333" }}>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h1" inverted>
+              {data.getpost.title}
+            </Header>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
 
-        <div className="article-actions">하이</div>
+      <Grid.Row style={{ margin: "60px" }}>
+        <Grid.Column width={16}>{data.getpost.contents}</Grid.Column>
+      </Grid.Row>
+      <Divider />
 
-        <div className="row">
-          <div className="col-xs-12 col-md-8 offset-md-2">방가</div>
-        </div>
-      </div>
+      <Grid.Row textAlign="center">
+        <Grid.Column textAlign="center">
+          <Comments id={id} />
+        </Grid.Column>
+      </Grid.Row>
     </Container>
   );
 };
