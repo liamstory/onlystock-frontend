@@ -40,7 +40,7 @@ export default ({ code }) => {
     );
   }
   return (
-    <Container style={{ marginTop: "7em" }}>
+    <Container>
       <HeaderContent code={code} stockname={data.havestock.stockname} />
       <Table singleLine>
         <Table.Header>

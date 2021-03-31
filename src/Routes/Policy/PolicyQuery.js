@@ -1,11 +1,28 @@
 import gql from "graphql-tag";
 
-export const UpdateUser = gql`
-  mutation updateUser($agree: Boolean) {
-    updateUser(agree1: $agree) {
+export const whoAmI = gql`
+  {
+    whoami {
+      agree1
+    }
+  }
+`;
+
+export const Agree = gql`
+  mutation agree($agree1: Boolean!) {
+    agree(agree1: $agree1) {
       user {
-        id
+        agree1
+        stockSet {
+          code
+        }
       }
     }
+  }
+`;
+
+export const LOG_OUT = gql`
+  mutation logUserOut {
+    logUserOut @client
   }
 `;

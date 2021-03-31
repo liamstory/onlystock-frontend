@@ -8,9 +8,9 @@ import {
   Loader,
   Image,
 } from "semantic-ui-react";
-import Header from "../Header";
 import { haveStock } from "./PostQuery";
 import { useQuery } from "react-apollo-hooks";
+import HeaderContent from "../HeaderContent";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({
@@ -46,10 +46,14 @@ export default ({
 
   return (
     <Container>
-      <Header code={code} stockname={haveStockData.havestock.stockname} />
+      <HeaderContent
+        code={code}
+        stockname={haveStockData.havestock.stockname}
+      />
       <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Field
+            width={16}
             name="title"
             type="text"
             label="제목"
@@ -60,11 +64,12 @@ export default ({
         </Form.Group>
         <Form.Group>
           <Form.Field
+            width={16}
             name="contents"
             type="textarea"
             label="내용"
             control="textarea"
-            rows="3"
+            rows="15"
             value={contents}
             onChange={(e) => setContents(e.target.value)}
           ></Form.Field>

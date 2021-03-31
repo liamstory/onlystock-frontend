@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { KAKAO_LOGIN, LOCAL_LOG_IN } from "./AuthQuery";
 import { useMutation } from "react-apollo-hooks";
 import AuthPresenter from "./AuthPresenter";
@@ -7,17 +7,22 @@ import AuthPresenter from "./AuthPresenter";
 export default () => {
   const [kakaoLogin, { data }] = useMutation(KAKAO_LOGIN);
   const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
+  const mounted = useRef(false);
 
   useEffect(() => {
-    async function locallogin() {
-      if (await data) {
-        await localLogInMutation({
-          variables: { token: data.socialAuth.token },
-        });
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      async function locallogin() {
+        if (await data) {
+          await localLogInMutation({
+            variables: { token: data.socialAuth.token },
+          });
+        }
       }
+      locallogin();
     }
-    locallogin();
-  }, data);
+  }, [data]);
 
   // 카카오 로그인 버튼을 생성합니다.
   const loginWithKakao = () => {

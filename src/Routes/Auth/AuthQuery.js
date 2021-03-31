@@ -27,3 +27,12 @@ export const LOCAL_LOG_IN = gql`
     logUserIn(token: $token) @client
   }
 `;
+
+export const allStock = gql`
+  query allstock {
+    allstock {
+      code
+      stockname
+    }
+  }
+`;

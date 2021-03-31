@@ -1,47 +1,42 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation } from "react-apollo-hooks";
-import { UpdateUser } from "./PolicyQuery";
-import {
-  Button,
-  Form,
-  Input,
-  Grid,
-  Header,
-  Image,
-  Divider,
-  Icon,
-  Responsive,
-  Dropdown,
-  Checkbox
-} from "semantic-ui-react";
+import { useHistory } from "react-router";
+import { toast } from "react-toastify";
+import PolicyPresenter from "./PolicyPresenter";
+import { Agree, LOG_OUT } from "./PolicyQuery";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
-  const [agree, setAgree] = useState(false);
-  const [updateUser, { data, error }] = useMutation(UpdateUser);
+  const [agreeMutation, { data: agreeData }] = useMutation(Agree);
+  const [logOutMutation] = useMutation(LOG_OUT);
+  const history = useHistory();
+  const mounted = useRef(false);
 
-  const onClickAgree = (e) => {
-    e.preventDefault();
-    setAgree(!agree);
-  };
-
-  const onClickUpdateUser = () => {
-    if (!agree) {
-      alert("이용 약관에 동의해주셔야합니다.");
-    } else {
-      updateUser({
-        variables: {
-          agree: agree,
-        },
-      });
-    }
-  };
   useEffect(() => {
-    if (data) {
-      console.log(data);
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      if (agreeData) {
+        console.log(agreeData);
+        history.push(`/getAccount`);
+      }
     }
-  }, [data]);
-    return (
-        
-    )
+  }, [agreeData]);
+
+  const onClick = async (e) => {
+    e.preventDefault();
+    try {
+      await agreeMutation({ variables: { agree1: true } });
+    } catch (e) {
+      toast.error("동의 해주세요.");
+    }
+  };
+
+  const logoutwithkakao = () => {
+    window.Kakao.Auth.logout(() => {
+      logOutMutation();
+    });
+  };
+
+  return <PolicyPresenter onClick={onClick} logOut={logoutwithkakao} />;
 };

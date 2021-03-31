@@ -13,6 +13,15 @@ import { useEffect } from "react";
 import { useQuery } from "react-apollo-hooks";
 import { Link, useHistory } from "react-router-dom";
 
+const menuStyle = {
+  border: "none",
+  borderRadius: 0,
+  boxShadow: "none",
+  marginBottom: "1em",
+  marginTop: "1em",
+  transition: "box-shadow 0.5s ease, padding 0.5s ease",
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ code, stockname }) => {
   const { data, loading } = useQuery(allStock);
@@ -44,9 +53,11 @@ export default ({ code, stockname }) => {
   }
 
   return (
-    <Menu secondary>
+    <Menu secondary style={menuStyle}>
       <Container>
-        <Menu.Item header>{stockname}</Menu.Item>
+        <Menu.Item header onClick={() => history.push(`/stock/${code}`)}>
+          {stockname}
+        </Menu.Item>
         <Menu.Item header>
           총 보유 주식 수 :{" "}
           {totalAmountData.totalamount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 주
